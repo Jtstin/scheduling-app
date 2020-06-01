@@ -87,14 +87,37 @@ video {
   vertical-align: baseline;
 }
 
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .sch-header {
   background-color: rgb(52, 139, 240);
+  height: 5em;
 }
 
 .sch-body {
   background-color: rgb(161, 205, 255);
+  flex-grow: 5;
+  display: flex;
+  justify-content: center;
 }
 
 .sch-footer {
   background-color: rgb(0, 76, 255);
+  height: 5em;
+}
+
+.main-content {
+  background-color: burlywood;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add {
+}
+
+.save {
 }
