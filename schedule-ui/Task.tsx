@@ -1,11 +1,17 @@
 import React from "react";
 
-const Task = () => {
+interface TaskProperties {
+  name: string;
+  dueBy: string;
+  importance: string;
+}
+const Task = (props: TaskProperties) => {
+  const { name, dueBy, importance } = props;
   return (
     <div className="task-row">
-      <div className="task-name">Name: Okay</div>
-      <div className="task-due-by">Due by: 10/10/10</div>
-      <div className="task-importance">Importance: high-priority</div>
+      <div className="task-name">{name}</div>
+      <div className="task-due-by">{dueBy}</div>
+      <div className="task-importance">{importance}</div>
     </div>
   );
 };
