@@ -1,0 +1,15 @@
+//json = javscript object notation
+{
+  "tasks": [
+    {
+      "name": "do stuff 1",
+      "dueBy": "2020/06/07",
+      "importance": "high"
+    },
+    {
+      "name": "do stuff 2",
+      "dueBy": "2020/06/09",
+      "importance": "low"
+    }
+  ]
+}
