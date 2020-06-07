@@ -1,22 +1,13 @@
 import React, { useState } from "react";
 import Task from "./Task";
-const taskResponse = {
-  tasks: [
-    {
-      name: "do stuff 1",
-      dueBy: "2020/06/07",
-      importance: "high",
-    },
-    {
-      name: "do stuff 2",
-      dueBy: "2020/06/09",
-      importance: "low",
-    },
-  ],
-};
 
 const Tasks = () => {
-  const [tasks, setTasks] = useState(taskResponse.tasks);
+  const [tasks, setTasks] = useState([]);
+  const getData = () => {
+    fetch("http://localhost:3000/api/tasks") //fetches data from api
+      .then((response) => response.json())
+      .then((data) => setTasks(data.tasks));
+  };
   const addClick = () => {
     setTasks([
       ...tasks,
@@ -33,6 +24,7 @@ const Tasks = () => {
         <div className="buttons">
           <button>Save</button>
         </div>
+        <button onClick={getData}>Get Data</button>
         <div className="buttons">
           <button onClick={addClick}>Add</button>
         </div>
