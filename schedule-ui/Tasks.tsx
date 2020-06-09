@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Task from "./Task";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
-  const getData = () => {
-    fetch("http://localhost:3000/api/tasks") //fetches data from api
-      .then((response) => response.json())
-      .then((data) => setTasks(data.tasks));
-  };
+  const [alreadyRan, setAlreadyRan] = useState(false);
+  useEffect(() => {
+    if (!alreadyRan) {
+      fetch("http://localhost:3000/api/tasks") //fetches data from api
+        .then((response) => response.json())
+        .then((data) => setTasks(data.tasks));
+      console.log("fetch data");
+    }
+    setAlreadyRan(true);
+  }, [alreadyRan]);
+
   const addClick = () => {
     setTasks([
       ...tasks,
@@ -18,13 +24,13 @@ const Tasks = () => {
       },
     ]);
   };
+
   return (
     <div className="main-content">
       <div className="main-content-header">
         <div className="buttons">
           <button>Save</button>
         </div>
-        <button onClick={getData}>Get Data</button>
         <div className="buttons">
           <button onClick={addClick}>Add</button>
         </div>
@@ -35,8 +41,9 @@ const Tasks = () => {
           <div className="task-due-by">Due by</div>
           <div className="task-importance">Importance</div>
         </div>
-        {tasks.map((task) => (
+        {tasks.map((task, index) => (
           <Task
+            key={`task-${index}`}
             name={task.name}
             dueBy={task.dueBy}
             importance={task.importance}
