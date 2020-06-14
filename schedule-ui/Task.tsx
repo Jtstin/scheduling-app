@@ -1,6 +1,7 @@
 import React from "react";
 
 interface TaskProperties {
+  id: number;
   name: string;
   dueBy: string;
   importance: string;

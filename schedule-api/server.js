@@ -41,7 +41,16 @@ function parseHttpText(requestText) {
 function getResponse(requestText) {
   const request = parseHttpText(requestText);
   console.log(request);
-  if (request.method === "GET" && request.path === "/api/tasks") {
+  if (request.method === "PUT" && request.path === "/api/tasks") {
+    const tasksDataPath = "data/tasks.json";
+    if (!fs.existsSync(tasksDataPath)) {
+      return "HTTP/1.1 404 Not Found\r\nServer: Juzdin\r\nContent-Length: 0\r\n\r\n";
+    }
+    const dataString = fileContent.toString("utf-8");
+    const json = JSON.parse(dataString);
+    const jsonText = JSON.stringify(json);
+    return `HTTP/1.1 200 OK\r\nServer:Juzdin\r\nAccess-Control-Allow-Method: *\r\nAccess-Control-Allow-Origin: *\r\nContent-Length:${jsonText.length}\r\nContent-Type: application/json\r\n\r\n${jsonText}`;
+  } else if (request.method === "GET" && request.path === "/api/tasks") {
     const tasksDataPath = "data/tasks.json";
     if (!fs.existsSync(tasksDataPath)) {
       return "HTTP/1.1 404 Not Found\r\nServer: Juzdin\r\nContent-Length: 0\r\n\r\n";

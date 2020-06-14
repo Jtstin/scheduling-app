@@ -15,14 +15,19 @@ const Tasks = () => {
   }, [alreadyRan]);
 
   const addClick = () => {
-    setTasks([
-      ...tasks,
-      {
-        name: `task ${new Date()}`,
-        dueBy: new Date().toDateString(),
-        importance: "medium",
-      },
-    ]);
+    const newId = Date.now();
+    const newTask = {
+      id: newId,
+      name: `task ${new Date()}`,
+      dueBy: new Date().toDateString(),
+      importance: "medium",
+    };
+    fetch(`http://localhost:3000/api/tasks/${newId}`, {
+      method: "PUT",
+      body: JSON.stringify(newTask),
+    }).then(() => {
+      setTasks([...tasks, , newTask]);
+    });
   };
 
   return (
@@ -43,6 +48,7 @@ const Tasks = () => {
         </div>
         {tasks.map((task, index) => (
           <Task
+            id={task.id}
             key={`task-${index}`}
             name={task.name}
             dueBy={task.dueBy}
